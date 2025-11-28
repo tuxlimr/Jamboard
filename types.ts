@@ -1,6 +1,8 @@
 export enum ToolType {
   CURSOR = 'CURSOR',
   PEN = 'PEN',
+  MARKER = 'MARKER',
+  HIGHLIGHTER = 'HIGHLIGHTER',
   STICKY = 'STICKY',
   ERASER = 'ERASER'
 }
@@ -32,6 +34,7 @@ export interface DrawPath {
   points: Point[];
   color: string;
   width: number;
+  opacity?: number;
 }
 
 export interface ChatMessage {

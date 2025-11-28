@@ -102,15 +102,31 @@ export default function App() {
       };
       setStickies(prev => [...prev, newSticky]);
       setCurrentTool(ToolType.CURSOR); // Switch back to cursor after placing
-    } else if (currentTool === ToolType.PEN) {
+    } else if ([ToolType.PEN, ToolType.MARKER, ToolType.HIGHLIGHTER].includes(currentTool)) {
       isDrawing.current = true;
       const id = generateId();
       currentPathId.current = id;
+
+      // Define pen styles based on tool type
+      let width = 3;
+      let color = '#1e293b'; // Slate 800 (Default Pen)
+      let opacity = 1.0;
+
+      if (currentTool === ToolType.MARKER) {
+        width = 8;
+        color = '#334155'; // Slate 700 (Thicker Marker)
+      } else if (currentTool === ToolType.HIGHLIGHTER) {
+        width = 24;
+        color = '#facc15'; // Yellow 400 (Highlighter)
+        opacity = 0.4;
+      }
+
       const newPath: DrawPath = {
         id,
         points: [{ x: clientX, y: clientY }],
-        color: '#1e293b', // Slate 800
-        width: 3,
+        color,
+        width,
+        opacity,
       };
       setPaths(prev => [...prev, newPath]);
     }
@@ -258,7 +274,7 @@ export default function App() {
           onMouseMove={handleBoardMouseMove}
           onMouseUp={handleBoardMouseUp}
           onMouseLeave={handleBoardMouseUp}
-          style={{ cursor: currentTool === ToolType.PEN ? 'crosshair' : 'default' }}
+          style={{ cursor: [ToolType.PEN, ToolType.MARKER, ToolType.HIGHLIGHTER].includes(currentTool) ? 'crosshair' : 'default' }}
         >
           {/* SVG Drawing Layer */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
@@ -268,10 +284,10 @@ export default function App() {
                  points={path.points.map(p => `${p.x},${p.y}`).join(' ')}
                  stroke={path.color}
                  strokeWidth={path.width}
+                 strokeOpacity={path.opacity ?? 0.9}
                  fill="none"
                  strokeLinecap="round"
                  strokeLinejoin="round"
-                 className="opacity-90"
                />
              ))}
           </svg>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolType } from '../types';
-import { MousePointer2, PenTool, StickyNote as StickyIcon, Eraser, Sparkles } from 'lucide-react';
+import { MousePointer2, Pen, PenTool, Highlighter, StickyNote as StickyIcon, Eraser, Sparkles } from 'lucide-react';
 
 interface ToolbarProps {
   currentTool: ToolType;
@@ -13,7 +13,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({ currentTool, setTool, onMagicR
   const tools = [
     { type: ToolType.CURSOR, icon: MousePointer2, label: 'Select' },
     { type: ToolType.STICKY, icon: StickyIcon, label: 'Sticky' },
-    { type: ToolType.PEN, icon: PenTool, label: 'Draw' },
+    { type: ToolType.PEN, icon: Pen, label: 'Pen' },
+    { type: ToolType.MARKER, icon: PenTool, label: 'Marker' },
+    { type: ToolType.HIGHLIGHTER, icon: Highlighter, label: 'Highlight' },
     { type: ToolType.ERASER, icon: Eraser, label: 'Clear' },
   ];
 
