@@ -1,0 +1,5 @@
+{
+  "name": "JamBoard AI",
+  "description": "A collaborative whiteboard with sticky notes, live drawing, smart voting, and AI-powered meeting reports.",
+  "requestFramePermissions": []
+}
